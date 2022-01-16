@@ -1,0 +1,105 @@
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: redirect-https
+spec:
+  redirectScheme:
+    scheme: https
+    permanent: true
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: bear
+spec:
+  entryPoints:
+    - web
+  routes:
+    - match: Host(`bear.infra.hex.camp`)
+      kind: Rule
+      middlewares:
+        - name: redirect-https
+      services:
+        - name: bear
+          port: 80
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: bear-tls
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`bear.infra.hex.camp`)
+      kind: Rule
+      services:
+        - name: bear
+          port: 80
+  tls:
+    secretName: bear-prod-cert
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: hare
+spec:
+  entryPoints:
+    - web
+  routes:
+    - match: Host(`hare.infra.hex.camp`)
+      kind: Rule
+      middlewares:
+        - name: redirect-https
+      services:
+        - name: hare
+          port: 80
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: hare-tls
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`hare.infra.hex.camp`)
+      kind: Rule
+      services:
+        - name: hare
+          port: 80
+  tls:
+    secretName: hare-prod-cert
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: moose
+spec:
+  entryPoints:
+    - web
+  routes:
+    - match: Host(`moose.infra.hex.camp`)
+      kind: Rule
+      middlewares:
+        - name: redirect-https
+      services:
+        - name: moose
+          port: 80
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: moose-tls
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`moose.infra.hex.camp`)
+      kind: Rule
+      services:
+        - name: moose
+          port: 80
+  tls:
+    secretName: moose-prod-cert

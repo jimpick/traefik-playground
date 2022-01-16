@@ -1,0 +1,41 @@
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: stripprefix-animals
+spec:
+  stripPrefix:
+    prefixes:
+      - /bear
+      - /hare
+      - /moose
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: animals
+spec:
+  entryPoints:
+    - web
+  routes:
+    - match: PathPrefix(`/bear`)
+      kind: Rule
+      services:
+        - name: bear
+          port: 80
+      middlewares:
+      - name: stripprefix-animals
+    - match: PathPrefix(`/hare`)
+      kind: Rule
+      services:
+        - name: hare
+          port: 80
+      middlewares:
+      - name: stripprefix-animals
+    - match: PathPrefix(`/moose`)
+      kind: Rule
+      services:
+        - name: moose
+          port: 80
+      middlewares:
+      - name: stripprefix-animals

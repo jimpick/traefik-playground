@@ -1,0 +1,26 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: animal-bear
+spec:
+  commonName: bear.infra.hex.camp
+  secretName: bear-infra-hex-camp-cert
+  dnsNames:
+    - bear.infra.hex.camp
+  issuerRef:
+    name: letsencrypt-staging-dns
+    kind: ClusterIssuer
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: animal-hare
+spec:
+  commonName: hare.infra.hex.camp
+  secretName: hare-infra-hex-camp-cert
+  dnsNames:
+    - hare.infra.hex.camp
+  issuerRef:
+    name: letsencrypt-staging-dns
+    kind: ClusterIssuer

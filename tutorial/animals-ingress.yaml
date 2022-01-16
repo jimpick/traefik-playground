@@ -1,0 +1,35 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: animals
+  annotations:
+    traefik.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /hare
+        pathType: Prefix
+        backend:
+          service:
+            name: hare
+            port:
+              name: http
+  - http:
+      paths:
+      - path: /bear
+        pathType: Prefix
+        backend:
+          service:
+            name: bear
+            port:
+              name: http
+  - http:
+      paths:
+      - path: /moose
+        pathType: Prefix
+        backend:
+          service:
+            name: moose
+            port:
+              name: http

@@ -1,0 +1,39 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: bear-prod
+spec:
+  commonName: bear.infra.hex.camp
+  secretName: bear-prod-cert
+  dnsNames:
+    - bear.infra.hex.camp
+  issuerRef:
+    name: letsencrypt-prod-dns
+    kind: ClusterIssuer
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hare-prod
+spec:
+  commonName: hare.infra.hex.camp
+  secretName: hare-prod-cert
+  dnsNames:
+    - hare.infra.hex.camp
+  issuerRef:
+    name: letsencrypt-prod-dns
+    kind: ClusterIssuer
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: moose-prod
+spec:
+  commonName: moose.infra.hex.camp
+  secretName: moose-prod-cert
+  dnsNames:
+    - moose.infra.hex.camp
+  issuerRef:
+    name: letsencrypt-prod-dns
+    kind: ClusterIssuer
